@@ -1,7 +1,5 @@
 #include <HCSR04.h>
-
 UltraSonicDistanceSensor US(12, 13); // Initialize sensor that uses digital pins trig and echo.
-float distance = US.measureDistanceCm();
 float x=100;
 int LED1 = 10;
 int LED2 = 9;
@@ -21,14 +19,13 @@ void setup()
   pinMode(LED4, OUTPUT);
   pinMode(LED5, OUTPUT);
   pinMode(LED6, OUTPUT);
-  pinMode(MOTOR, OUTPUT);// set the relay pin as an output
   
   delay(500);
 }
 
 void loop()
 {
-  delay(10);
+float distance = US.measureDistanceCm();
 
   
   if (distance > 0.86*x)
@@ -46,16 +43,7 @@ void loop()
   else if (distance > .76*x && distance < .85*x)
   {
     digitalWrite(6, HIGH);
-    Serial.println("nearly empty");
-    boolean motor_state1 = digitalRead(MOTOR); // read the state of the motor pin
-    if (motor_state1 == HIGH)
-    {
-      delay(1000);
-    }
-    else
-    {
-      delay(1000);
-    }
+    Serial.println("nearly empty"); 
   }
 
 
@@ -64,32 +52,14 @@ void loop()
  else if (distance < .75*x && distance > .5*x)
   {
     Serial.println("nearly empty");
-    digitalWrite(7, HIGH);
-    boolean motor_state2 = digitalRead(MOTOR); // read the state of the motor pin
-    if (motor_state2 == HIGH)
-    {
-      delay(1000);
-    }
-    else
-    {
-      delay(1000);
-    }
+    digitalWrite(7, HIGH); 
   }
 
 
  else if (distance < .5*x && distance > .26*x)
   {
     Serial.println("nearly empty");
-    digitalWrite(8, HIGH);
-    boolean motor_state2 = digitalRead(MOTOR); // read the state of the motor pin
-    if (motor_state2 == HIGH)
-    {
-      delay(1000);
-    }
-    else
-    {
-      delay(1000);
-    }
+    digitalWrite(8, HIGH);  
   }
 
 
@@ -97,15 +67,6 @@ void loop()
   {
     Serial.println("nearly empty");
     digitalWrite(9, HIGH);
-    boolean motor_state2 = digitalRead(MOTOR); // read the state of the motor pin
-    if (motor_state2 == HIGH)
-    {
-      delay(1000);
-    }
-    else
-    {
-      delay(1000);
-    }
   }
   
 
